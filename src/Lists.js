@@ -1,4 +1,5 @@
-import { use, useState } from 'react';
+import { useState } from 'react';
+import './Lists.css';
 
 const initialContacts = [
     {
@@ -36,7 +37,7 @@ function List() {
     return (
         <>
             <h1 style={{ textDecoration: 'underline' }}>Contact List</h1>
-            <table>
+            <table className='contactTable'>
                 <thead>
                     <tr>
                         <th>ID</th>
