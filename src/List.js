@@ -1,4 +1,6 @@
-const contacts = [
+import { use, useState } from 'react';
+
+const initialContacts = [
     {
         id: 1,
         firstName: 'John',
@@ -23,6 +25,7 @@ const contacts = [
 ];
 
 function List() {
+    const [contacts, setContacts] = useState(initialContacts);
     return (
         <table>
             <thead>
