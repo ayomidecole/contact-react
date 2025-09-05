@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Lists.css';
+import ListItem from './ListItem';
 
 const initialContacts = [
     {
@@ -48,12 +49,7 @@ function List() {
                 </thead>
                 <tbody>
                     {contacts.map((contact) => (
-                        <tr key={contact.id}>
-                            <td>{contact.id}</td>
-                            <td>{contact.firstName}</td>
-                            <td>{contact.lastName}</td>
-                            <td>{contact.email}</td>
-                        </tr>
+                        <ListItem key={contact.id} contact={contact}/>
                     ))}
                 </tbody>
             </table>
