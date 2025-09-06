@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './Lists.css';
 import ListItem from './ListItem';
+import Form from './Form';
 
 const initialContacts = [
     {
@@ -37,7 +38,7 @@ function List() {
     const [contacts, setContacts] = useState(initialContacts);
 
     async function handleDelete(contact) {
-        const url = `http://localhost:8001/contacts/${contact.id}`;
+        const url = `http://localhost:8001/contacts/api/${contact.id}`;
         const response = await fetch(url, {
             method: 'DELETE',
         });
@@ -46,6 +47,15 @@ function List() {
                 prevState.filter((prevContact) => prevContact.id !== contact.id)
             );
         }
+    }
+
+    async function handleSave(contact) {
+        const url = `http://localhost:8001/api/contacts/`;
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(contact),
+        });
     }
 
     return (
@@ -70,6 +80,7 @@ function List() {
                     ))}
                 </tbody>
             </table>
+            <Form onSave={handleSave} />
         </>
     );
 }
