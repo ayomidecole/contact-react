@@ -1,8 +1,23 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { ContactContext } from './ContactContext';
 const initialContact = { firstName: '', lastName: '', email: '' };
 
 function Form({ onSave }) {
+    const { contacts, setContacts } = useContext(ContactContext);
     const [contact, setContact] = useState(initialContact);
+
+    async function handleSave(contact) {
+        const url = 'http://localhost:3001/contacts';
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(contact),
+        });
+        if (response.status === 200) {
+            const id = response.headers.get('Location').split('/').pop();
+            setContacts((prevContacts) => [...prevContacts, contact]);
+        }
+    }
 
     function handleChange(e) {
         const key = e.currentTarget.name;
@@ -14,7 +29,7 @@ function Form({ onSave }) {
         <form
             onSubmit={(e) => {
                 e.preventDefault();
-                onSave(contact);
+                handleSave(contact);
                 setContact(initialContact);
             }}
         >
